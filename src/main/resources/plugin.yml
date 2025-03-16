@@ -1,0 +1,11 @@
+name: pvChat
+main: com.purityvanilla.pvchat.PVChat
+version: 1.0
+api-version: 1.20
+authors: [chiralpenguin]
+description: Chat plugin for the Purity Vanilla Minecraft server
+folia-supported: true
+depend: [pvLib, pvCore]
+permissions:
+  pvchat.formatcodes.chat.*:
+    description: Gives access to all formatting codes in chat
