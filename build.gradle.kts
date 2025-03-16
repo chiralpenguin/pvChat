@@ -16,8 +16,6 @@ dependencies {
     compileOnly("dev.folia", "folia-api", "1.20.1-R0.1-SNAPSHOT")
     compileOnly("com.purityvanilla", "pvLib", "1.0")
 
-    implementation("org.mariadb.jdbc", "mariadb-java-client", "3.4.1")
-    implementation("com.zaxxer", "HikariCP", "5.1.0")
 }
 
 tasks.shadowJar {
@@ -28,10 +26,10 @@ tasks.shadowJar {
 
 val testServerPluginsPath: String by project
 tasks {
-    val copyToServer by creating(Copy::class) {
-        dependsOn("shadowJar")
-        from(layout.buildDirectory.file("libs"))
-        include("pvChat.jar") // Change to "plugin-version.jar" if no shadowing
-        into(file(testServerPluginsPath)) // Use the externalized path here
-    }
+    val copyToServer by registering(Copy::class, fun Copy.() {
+            dependsOn("shadowJar")
+            from(layout.buildDirectory.file("libs"))
+            include("pvChat.jar") // Change to "plugin-version.jar" if no shadowing
+            into(file(testServerPluginsPath)) // Use the externalized path here
+        })
 }
