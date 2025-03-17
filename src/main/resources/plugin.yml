@@ -12,7 +12,7 @@ commands:
     usage: /pvchat-reload
     permission: pvchat.reload
 permissions:
-  pvchat.formatcodes.chat.*:
+  pvchat.formatcodes.chat.all:
     description: Gives access to all formatting codes in chat
   pvchat.formatcodes.chat.magic:
     description: Gives access to magic (obfuscated) formatting in chat
