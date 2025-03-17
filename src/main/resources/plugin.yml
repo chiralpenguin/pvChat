@@ -6,6 +6,11 @@ authors: [chiralpenguin]
 description: Chat plugin for the Purity Vanilla Minecraft server
 folia-supported: true
 depend: [pvLib, pvCore]
+commands:
+  reload:
+    description: Reloads the plugin's configs and messages
+    usage: /pvchat-reload
+    permission: pvchat.reload
 permissions:
   pvchat.formatcodes.chat.*:
     description: Gives access to all formatting codes in chat

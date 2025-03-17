@@ -1,5 +1,6 @@
 package com.purityvanilla.pvchat;
 
+import com.purityvanilla.pvchat.commands.ReloadCommand;
 import com.purityvanilla.pvchat.listeners.AsyncChatListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,6 +11,7 @@ public class PVChat extends JavaPlugin {
     public void onEnable() {
         config = new Config();
 
+        registerCommands();
         registerListeners();
     }
 
@@ -22,7 +24,7 @@ public class PVChat extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("")
+        getCommand("reload").setExecutor(new ReloadCommand(this));
     }
 
     private void registerListeners() {
