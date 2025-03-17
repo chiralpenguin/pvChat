@@ -1,4 +1,5 @@
 {
+  "chat-renderer": "<prefix><displayname><suffix> <aqua>> <reset><message>",
   "console-only": "<red>This command can only be used from console",
   "player-not-found": "<red>Player could not be found",
   "player-only": "<red>This command can only be used by a player",
