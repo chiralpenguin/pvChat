@@ -1,5 +1,6 @@
 package com.purityvanilla.pvchat;
 
+import com.purityvanilla.pvchat.listeners.AsyncChatListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PVChat extends JavaPlugin {
@@ -12,7 +13,19 @@ public class PVChat extends JavaPlugin {
         registerListeners();
     }
 
-    private void registerListeners() {
+    public Config config() {
+        return config;
+    }
 
+    public void reload() {
+        config = new Config();
+    }
+
+    private void registerCommands() {
+        getCommand("")
+    }
+
+    private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new AsyncChatListener(this), this);
     }
 }
