@@ -14,3 +14,5 @@ commands:
 permissions:
   pvchat.formatcodes.chat.*:
     description: Gives access to all formatting codes in chat
+  pvchat.formatcodes.chat.magic:
+    description: Gives access to magic (obfuscated) formatting in chat
