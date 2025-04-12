@@ -7,11 +7,21 @@ description: Chat plugin for the Purity Vanilla Minecraft server
 folia-supported: true
 depend: [pvLib, pvCore]
 commands:
+  ignore:
+    description: Adds/removes a player from your ignore list to block messages
+    usage: /ignore <player>
+    permission: pvchat.ignore
+  ignored:
+    description: Gives the list of usernames you currently have ignored
+    usage: /ignored
+    permission: pvchat.ignored
   reload:
     description: Reloads the plugin's configs and messages
     usage: /pvchat-reload
     permission: pvchat.reload
 permissions:
+  pvchat.ignore.bypass:
+    description: Chat and private messages will be sent regardless of if the recipient has the sender ignored
   pvchat.formatcodes.chat.all:
     description: Gives access to all formatting codes in chat
   pvchat.formatcodes.chat.magic:

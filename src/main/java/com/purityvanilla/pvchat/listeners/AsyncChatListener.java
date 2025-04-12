@@ -2,6 +2,7 @@ package com.purityvanilla.pvchat.listeners;
 
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvcore.PVCore;
+import com.purityvanilla.pvcore.api.PVCoreAPI;
 import com.purityvanilla.pvcore.util.FormatCodeParser;
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -15,6 +16,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AsyncChatListener implements Listener {
     private final PVChat plugin;
 
@@ -24,14 +28,24 @@ public class AsyncChatListener implements Listener {
 
     @EventHandler
     public void onAsyncChat(AsyncChatEvent event) {
-        Player player = event.getPlayer();
+        Player sender = event.getPlayer();
+
+        // Prevent players who have the sender ignored from receiving the message
+        if (!sender.hasPermission("pvchat.ignore.bypass")) {
+            event.viewers().removeIf(audience -> {
+                if (audience instanceof Player recipient) {
+                    return PVCore.getAPI().getPlayerAPI().isPlayerIgnored(recipient, sender);
+                }
+                return false;
+            });
+        }
 
         // Replace permitted format codes with proper Component formatting
         String rawMessage = PlainTextComponentSerializer.plainText().serialize(event.message());
-        Component formattedMessage = PVCore.getAPI().parsePlayerFormatString(rawMessage, player, FormatCodeParser.Context.CHAT);
-        Component prefix = PVCore.getAPI().getPlayerAPI().getPlayerPrefix(player);
-        Component displayName = player.displayName();
-        Component suffix = PVCore.getAPI().getPlayerAPI().getPlayerSuffix(player);
+        Component formattedMessage = PVCore.getAPI().parsePlayerFormatString(rawMessage, sender, FormatCodeParser.Context.CHAT);
+        Component prefix = PVCore.getAPI().getPlayerAPI().getPlayerPrefix(sender);
+        Component displayName = sender.displayName();
+        Component suffix = PVCore.getAPI().getPlayerAPI().getPlayerSuffix(sender);
 
         // Apply any style from prefix to displayname if it has no existing style
         Style prefixStyle = prefix.style();

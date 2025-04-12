@@ -1,8 +1,12 @@
 {
   "chat-renderer": "<prefix><displayname><suffix> <aqua>> <reset><message>",
   "console-only": "<red>This command can only be used from console",
+  "ignore-player": "<gold><player> <aqua>is now ignored",
+  "ignore-self": "<red>You cannot ignore yourself",
+  "ignore-usage": "<red>Usage: /ignore <player>",
   "player-not-found": "<red>Player could not be found",
   "player-only": "<red>This command can only be used by a player",
   "reload-plugin": "<aqua>Reloading pvChat",
-  "reload-complete": "<aqua>Reloaded config.yml and messages.json"
+  "reload-complete": "<aqua>Reloaded config.yml and messages.json",
+  "unignore-player": "<gold><player> <aqua>is no longer ignored"
 }
