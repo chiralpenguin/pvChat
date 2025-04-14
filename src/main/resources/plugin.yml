@@ -11,10 +11,11 @@ commands:
     description: Adds/removes a player from your ignore list to block messages
     usage: /ignore <player>
     permission: pvchat.ignore
-  ignored:
+  ignorelist:
     description: Gives the list of usernames you currently have ignored
-    usage: /ignored
-    permission: pvchat.ignored
+    usage: /ignorelist
+    permission: pvchat.ignorelist
+    aliases: [ignored]
   reload:
     description: Reloads the plugin's configs and messages
     usage: /pvchat-reload

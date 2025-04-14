@@ -1,6 +1,8 @@
 {
   "chat-renderer": "<prefix><displayname><suffix> <aqua>> <reset><message>",
   "console-only": "<red>This command can only be used from console",
+  "ignore-list": "<aqua>Currently ignoring players: <gold><ignorelist>",
+  "ignore-list-none": "<aqua>No players are currently ignored",
   "ignore-player": "<gold><player> <aqua>is now ignored",
   "ignore-self": "<red>You cannot ignore yourself",
   "ignore-usage": "<red>Usage: /ignore <player>",
