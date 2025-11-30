@@ -2,22 +2,16 @@ package com.purityvanilla.pvchat.listeners;
 
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvcore.PVCore;
-import com.purityvanilla.pvcore.api.PVCoreAPI;
 import com.purityvanilla.pvcore.util.FormatCodeParser;
-import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class AsyncChatListener implements Listener {
     private final PVChat plugin;

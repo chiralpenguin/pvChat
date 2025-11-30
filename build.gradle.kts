@@ -19,7 +19,6 @@ dependencies {
 }
 
 tasks.shadowJar {
-    dependsOn(tasks.build)
     archiveClassifier.set("") // This removes the default "-all" classifier
     archiveFileName.set("pvChat.jar")
 }
