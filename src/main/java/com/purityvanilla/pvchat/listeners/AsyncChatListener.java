@@ -2,8 +2,8 @@ package com.purityvanilla.pvchat.listeners;
 
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvcore.PVCore;
-import com.purityvanilla.pvcore.util.FormatCodeParser;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import com.purityvanilla.pvlib.util.FormatCodeParser;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
