@@ -36,7 +36,7 @@ public class AsyncChatListener implements Listener {
 
         // Replace permitted format codes with proper Component formatting
         String rawMessage = PlainTextComponentSerializer.plainText().serialize(event.message());
-        Component formattedMessage = PVCore.getAPI().parsePlayerFormatString(rawMessage, sender, FormatCodeParser.Context.CHAT);
+        Component formattedMessage = FormatCodeParser.parseString(rawMessage, sender, FormatCodeParser.Context.CHAT);
         Component prefix = PVCore.getAPI().getPlayerAPI().getPlayerPrefix(sender);
         Component displayName = sender.displayName();
         Component suffix = PVCore.getAPI().getPlayerAPI().getPlayerSuffix(sender);
