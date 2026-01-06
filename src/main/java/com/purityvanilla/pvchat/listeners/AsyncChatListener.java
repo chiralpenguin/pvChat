@@ -1,6 +1,7 @@
 package com.purityvanilla.pvchat.listeners;
 
 import com.purityvanilla.pvchat.PVChat;
+import com.purityvanilla.pvchat.chat.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import com.purityvanilla.pvlib.util.FormatCodeParser;
@@ -34,34 +35,12 @@ public class AsyncChatListener implements Listener {
             });
         }
 
-        // Replace permitted format codes with proper Component formatting
-        String rawMessage = PlainTextComponentSerializer.plainText().serialize(event.message());
-        Component formattedMessage = FormatCodeParser.parseString(rawMessage, sender, FormatCodeParser.Context.CHAT);
-        Component prefix = PVCore.getAPI().getPlayerAPI().getPlayerPrefix(sender);
-        Component displayName = sender.displayName();
-        Component suffix = PVCore.getAPI().getPlayerAPI().getPlayerSuffix(sender);
-
-        // Apply any style from prefix to displayname if it has no existing style
-        Style prefixStyle = prefix.style();
-        Style displayNameStyle = displayName.style();
-        Component finalDisplayName;
-
-        if (displayNameStyle.isEmpty()) {
-            finalDisplayName = displayName.style(prefixStyle);
-        } else {
-            Style combinedStyle = prefixStyle.merge(displayNameStyle);
-            finalDisplayName = displayName.style(combinedStyle);
-        }
-
-        // Custom ChatRenderer defined as message
         event.renderer((source, sourceDisplayName, message, viewer) ->
-                plugin.config().getMessage("chat-renderer",
-                TagResolver.resolver(
-                        Placeholder.component("prefix", prefix),
-                        Placeholder.component("displayname", finalDisplayName),
-                        Placeholder.component("suffix", suffix),
-                        Placeholder.component("message", formattedMessage)
+                ChatFormat.getRenderedMessage(
+                        message,
+                        source,
+                        plugin.config().getRawMessage("chat-renderer")
                 )
-        ));
+        );
     }
 }
