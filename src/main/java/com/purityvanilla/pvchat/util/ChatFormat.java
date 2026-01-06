@@ -1,4 +1,4 @@
-package com.purityvanilla.pvchat.chat;
+package com.purityvanilla.pvchat.util;
 
 import com.purityvanilla.pvcore.PVCore;
 import com.purityvanilla.pvlib.util.FormatCodeParser;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class ChatFormat {
 
-    public static Component getRenderedMessage(Component message, Player source, String rendererTemplate) {
+    public static Component formatMessage(Component message, Player source, String rendererTemplate) {
         // Replace permitted format codes with proper Component formatting
         String rawMessage = PlainTextComponentSerializer.plainText().serialize(message);
         Component formattedMessage = FormatCodeParser.parseString(rawMessage, source, FormatCodeParser.Context.CHAT);

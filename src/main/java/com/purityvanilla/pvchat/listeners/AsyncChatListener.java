@@ -1,15 +1,9 @@
 package com.purityvanilla.pvchat.listeners;
 
 import com.purityvanilla.pvchat.PVChat;
-import com.purityvanilla.pvchat.chat.ChatFormat;
+import com.purityvanilla.pvchat.util.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import com.purityvanilla.pvlib.util.FormatCodeParser;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +30,7 @@ public class AsyncChatListener implements Listener {
         }
 
         event.renderer((source, sourceDisplayName, message, viewer) ->
-                ChatFormat.getRenderedMessage(
+                ChatFormat.formatMessage(
                         message,
                         source,
                         plugin.config().getRawMessage("chat-renderer")
