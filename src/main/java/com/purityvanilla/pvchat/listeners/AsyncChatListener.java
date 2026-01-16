@@ -5,7 +5,9 @@ import com.purityvanilla.pvchat.util.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class AsyncChatListener implements Listener {
@@ -28,6 +30,8 @@ public class AsyncChatListener implements Listener {
                 return false;
             });
         }
+
+        // TODO filter raw message string here, Component->Plaintext->Component
 
         event.renderer((source, sourceDisplayName, message, viewer) ->
                 ChatFormat.formatMessage(

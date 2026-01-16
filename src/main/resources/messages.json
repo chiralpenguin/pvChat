@@ -6,6 +6,7 @@
   "ignore-player": "<gold><player> <aqua>is now ignored",
   "ignore-self": "<red>You cannot ignore yourself",
   "ignore-usage": "<red>Usage: /ignore <player>",
+  "content-blocked": "<red>Latest message blocked",
   "player-not-found": "<red>Player could not be found",
   "player-only": "<red>This command can only be used by a player",
   "reload-plugin": "<aqua>Reloading pvChat",

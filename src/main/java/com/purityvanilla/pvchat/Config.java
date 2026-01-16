@@ -3,14 +3,89 @@ package com.purityvanilla.pvchat;
 import com.purityvanilla.pvlib.config.ConfigFile;
 import com.purityvanilla.pvlib.config.Messages;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
 public class Config extends ConfigFile {
+    private final Set<Integer> blockedChars;
+    private final String replacementChar;
+    private final Set<String> blockedStrings;
+    private final String replacementString;
     private final boolean verbose;
 
-    public Config() {
+    public Config(Logger logger) {
         super("plugins/pvChat/config.yml");
         messages = new Messages(this, "plugins/pvChat/messages.json");
 
+        Set<Integer> loadedChars = Set.of();
+        try {
+            loadedChars = readBlockedCharacters("plugins/pvChat/blocked_chars.txt");
+        } catch (IOException e) {
+            logger.severe("Could not read blocked_chars.txt! Ensure the file exists and is valid.");
+        }
+        blockedChars = loadedChars;
+        replacementChar = configRoot.node("replacement-character").getString();
+
+        Set<String> loadedStrings = Set.of();
+        try {
+            loadedStrings = readBlockedStrings("plugins/pvChat/blocked_words.txt");
+        } catch (IOException e) {
+            logger.severe("Could not read blocked_chars.txt! Ensure the file exists and is valid.");
+        }
+        blockedStrings = loadedStrings;
+        replacementString = configRoot.node("replacement-string").getString();
+
         verbose = configRoot.node("verbose").getBoolean();
+    }
+
+    private Set<Integer> readBlockedCharacters(String filepath) throws IOException {
+        Set<Integer> blocked = new HashSet<>();
+
+        try (BufferedReader buffer = new BufferedReader(new FileReader(filepath))) {
+            String line = buffer.readLine();
+
+            while (line != null) {
+                blocked.add(Integer.decode(line));
+                line = buffer.readLine();
+            }
+        }
+
+        return blocked;
+    }
+
+    private Set<String> readBlockedStrings(String filepath) throws IOException {
+        Set<String> blocked = new HashSet<>();
+
+        try (BufferedReader buffer = new BufferedReader(new FileReader(filepath))) {
+            String line = buffer.readLine();
+
+            while (line != null) {
+                blocked.add(line);
+                line = buffer.readLine();
+            }
+        }
+
+        return blocked;
+    }
+
+    public Set<Integer> getBlockedChars() {
+        return blockedChars;
+    }
+
+    public String getReplacementChar() {
+        return replacementChar;
+    }
+
+    public Set<String> getBlockedStrings() {
+        return blockedStrings;
+    }
+
+    public String getReplacementString() {
+        return replacementString;
     }
 
     public boolean verbose() {
