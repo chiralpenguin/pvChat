@@ -18,6 +18,8 @@ dependencies {
     compileOnly("com.purityvanilla", "pvLib", "1.0")
     compileOnly("com.purityvanilla", "pvCore", "1.0")
     compileOnly("com.github.retrooper", "packetevents-spigot", "2.11.1")
+
+    implementation("com.ibm.icu", "icu4j", "68.1")
 }
 
 tasks.shadowJar {

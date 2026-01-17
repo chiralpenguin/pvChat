@@ -1,5 +1,4 @@
 # pvChat version 1.0
-replacement-character: '*'
 replacement-string: '****'
 
 verbose: false

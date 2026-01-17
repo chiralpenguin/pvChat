@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 public class Config extends ConfigFile {
     private final Set<Integer> blockedChars;
-    private final String replacementChar;
     private final Set<String> blockedStrings;
     private final String replacementString;
     private final boolean verbose;
@@ -28,7 +27,6 @@ public class Config extends ConfigFile {
             logger.severe("Could not read blocked_chars.txt! Ensure the file exists and is valid.");
         }
         blockedChars = loadedChars;
-        replacementChar = configRoot.node("replacement-character").getString();
 
         Set<String> loadedStrings = Set.of();
         try {
@@ -74,10 +72,6 @@ public class Config extends ConfigFile {
 
     public Set<Integer> getBlockedChars() {
         return blockedChars;
-    }
-
-    public String getReplacementChar() {
-        return replacementChar;
     }
 
     public Set<String> getBlockedStrings() {

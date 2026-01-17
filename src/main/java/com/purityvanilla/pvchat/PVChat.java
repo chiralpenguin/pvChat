@@ -18,24 +18,16 @@ public class PVChat extends JavaPlugin {
     @Override
     public void onEnable() {
         config = new Config(getLogger());
-        textFilter =  createTextFilter(config);
+        textFilter =  new TextFilter(config);
 
         registerCommands();
         registerListeners();
     }
 
-    public TextFilter createTextFilter(Config config) {
-       return new TextFilter(
-               config.getBlockedChars(),
-               config.getReplacementChar(),
-               config.getBlockedStrings(),
-               config.getReplacementString()
-       );
-    }
 
     public void reload() {
         config = new Config(getLogger());
-        textFilter = createTextFilter(config);
+        textFilter = new TextFilter(config);
     }
 
     private void registerCommands() {

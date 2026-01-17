@@ -3,12 +3,16 @@ package com.purityvanilla.pvchat.listeners;
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvchat.util.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
+import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class AsyncChatListener implements Listener {
     private final PVChat plugin;
@@ -31,14 +35,38 @@ public class AsyncChatListener implements Listener {
             });
         }
 
-        // TODO filter raw message string here, Component->Plaintext->Component
+        Component original = event.message();
+        Component censored = plugin.getTextFilter().filterComponent(original);
 
-        event.renderer((source, sourceDisplayName, message, viewer) ->
+        // Create the renderer
+        ChatRenderer renderer = (source, sourceDisplayName, message, viewer) ->
                 ChatFormat.formatMessage(
                         message,
                         source,
                         plugin.config().getRawMessage("chat-renderer")
-                )
-        );
+                );
+
+        if (!original.equals(censored)) {
+            Set<Audience> others = new HashSet<>(event.viewers());
+            others.remove(sender);
+
+            event.viewers().clear();
+            event.viewers().add(sender);
+
+            // Render the censored message using the same format
+            Component display = renderer.render(
+                    sender,
+                    sender.displayName(),
+                    censored,
+                    Audience.empty()
+            );
+
+            for (Audience viewer : others) {
+                viewer.sendMessage(display);
+            }
+        }
+
+        // Apply renderer to the event (for the sender's message)
+        event.renderer(renderer);
     }
 }
