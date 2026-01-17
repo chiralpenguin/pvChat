@@ -2,9 +2,7 @@ package com.purityvanilla.pvchat.filter;
 
 import com.ibm.icu.text.SpoofChecker;
 import com.purityvanilla.pvchat.Config;
-import com.purityvanilla.pvchat.filter.stages.FilterStage;
-import com.purityvanilla.pvchat.filter.stages.HomoglyphStage;
-import com.purityvanilla.pvchat.filter.stages.LeetspeakStage;
+import com.purityvanilla.pvchat.filter.stages.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -60,8 +58,11 @@ public class TextFilter {
 
     private List<FilterStage> buildFilterPipeline() {
         return List.of(
+                new LowercaseStage(),
                 new LeetspeakStage(),
-                new HomoglyphStage()
+                new HomoglyphStage(),
+                new IgnoreNonAlphaStage(),
+                new CollapseRepeatStage()
         );
     }
 
