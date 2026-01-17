@@ -38,7 +38,6 @@ public class AsyncChatListener implements Listener {
         Component original = event.message();
         Component censored = plugin.getTextFilter().filterComponent(original);
 
-        // Create the renderer
         ChatRenderer renderer = (source, sourceDisplayName, message, viewer) ->
                 ChatFormat.formatMessage(
                         message,

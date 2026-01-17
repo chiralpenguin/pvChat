@@ -25,7 +25,6 @@ public class BossBarListener implements PacketListener {
         ) return;
 
         Component title = packet.getTitle();
-        if (title instanceof TranslatableComponent) return;
         Component filtered = plugin.getTextFilter().filterComponent(title);
         packet.setTitle(filtered);
     }

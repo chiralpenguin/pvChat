@@ -26,8 +26,6 @@ public class EntityMetaDataListener implements PacketListener {
         for (EntityData metadata : packet.getEntityMetadata())
             if (metadata.getIndex() == 2 && metadata.getValue() instanceof Optional<?> opt) {
                 if (opt.isPresent() && opt.get() instanceof Component name) {
-                    // MiniMessage can't handle TranslatableComponents, only non-custom names avoid filter
-                    if (name instanceof TranslatableComponent) return;
                     Component filtered = plugin.getTextFilter().filterComponent(name);
                     metadata.setValue(Optional.of(filtered));
                 }

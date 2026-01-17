@@ -4,6 +4,7 @@ import com.ibm.icu.text.SpoofChecker;
 import com.purityvanilla.pvchat.Config;
 import com.purityvanilla.pvchat.filter.stages.*;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
@@ -150,6 +151,9 @@ public class TextFilter {
     }
 
     public Component filterComponent(Component component) {
+        // TranslatableComponents can't be handled by MiniMessage and are only created server-side, so can be ignored
+        if (component instanceof TranslatableComponent) return component;
+
         String text = mm.serialize(component);
         String filtered = filterText(text);
         return mm.deserialize(filtered);
