@@ -4,7 +4,6 @@ import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientEditBook;
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientUpdateSign;
 import com.purityvanilla.pvchat.PVChat;
 
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class EditBookListener implements PacketListener {
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
+        if (!plugin.config().isContentFilterEnabled()) return;
         if (event.getPacketType() != PacketType.Play.Client.EDIT_BOOK) return;
         WrapperPlayClientEditBook packet = new WrapperPlayClientEditBook(event);
 

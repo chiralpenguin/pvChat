@@ -15,6 +15,7 @@ public class UpdateSignListener implements PacketListener {
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
+        if (!plugin.config().isContentFilterEnabled()) return;
         if (event.getPacketType() != PacketType.Play.Client.UPDATE_SIGN) return;
         WrapperPlayClientUpdateSign packet = new WrapperPlayClientUpdateSign(event);
 

@@ -42,7 +42,7 @@ public class AsyncChatListener implements Listener {
                         plugin.config().getRawMessage("chat-renderer")
                 );
 
-        handleFiltering(event, sender, renderer);
+        if (plugin.config().isContentFilterEnabled()) handleFiltering(event, sender, renderer);
 
         // Apply renderer to the event (for the sender's message)
         event.renderer(renderer);

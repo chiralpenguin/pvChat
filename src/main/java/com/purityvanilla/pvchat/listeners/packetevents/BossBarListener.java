@@ -6,7 +6,6 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerBossBar;
 import com.purityvanilla.pvchat.PVChat;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TranslatableComponent;
 
 public class BossBarListener implements PacketListener {
     private final PVChat plugin;
@@ -17,6 +16,7 @@ public class BossBarListener implements PacketListener {
 
     @Override
     public void onPacketSend(PacketSendEvent event) {
+        if (!plugin.config().isContentFilterEnabled()) return;
         if (event.getPacketType() != PacketType.Play.Server.BOSS_BAR) return;
         WrapperPlayServerBossBar packet = new WrapperPlayServerBossBar(event);
 

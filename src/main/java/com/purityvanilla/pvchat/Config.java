@@ -2,18 +2,23 @@ package com.purityvanilla.pvchat;
 
 import com.purityvanilla.pvlib.config.ConfigFile;
 import com.purityvanilla.pvlib.config.Messages;
+import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public class Config extends ConfigFile {
     private final Set<Integer> blockedChars;
     private final Set<String> blockedStrings;
+    private final boolean enableContentFilter;
     private final String replacementString;
+    private final List<String> muteBlockedCommands;
     private final boolean verbose;
 
     public Config(Logger logger) {
@@ -35,7 +40,17 @@ public class Config extends ConfigFile {
             logger.severe("Could not read blocked_chars.txt! Ensure the file exists and is valid.");
         }
         blockedStrings = loadedStrings;
+
+        enableContentFilter = configRoot.node("enable-content-filter").getBoolean();
         replacementString = configRoot.node("replacement-string").getString();
+
+        List<String> muteCommands = new ArrayList<>();
+        try {
+            muteCommands = configRoot.node("mute-blocked-commands").getList(String.class);
+        } catch (SerializationException e) {
+            logger.severe("Could not read 'mute-blocked-commands' value. Verify config.yml");
+        }
+        muteBlockedCommands = muteCommands;
 
         verbose = configRoot.node("verbose").getBoolean();
     }
@@ -78,8 +93,16 @@ public class Config extends ConfigFile {
         return blockedStrings;
     }
 
+    public boolean isContentFilterEnabled() {
+        return enableContentFilter;
+    }
+
     public String getReplacementString() {
         return replacementString;
+    }
+
+    public List<String> getMuteBlockedCommands() {
+        return muteBlockedCommands;
     }
 
     public boolean verbose() {

@@ -17,6 +17,7 @@ public class PrepareAnvilListener implements Listener {
 
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent event) {
+        if (!plugin.config().isContentFilterEnabled()) return;
         if (event.getResult() == null || event.getInventory().getRenameText() == null || event.getInventory().getRenameText().isEmpty()) {
             return;
         }
