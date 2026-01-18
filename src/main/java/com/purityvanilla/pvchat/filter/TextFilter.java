@@ -90,6 +90,7 @@ public class TextFilter {
             }
             first = false;
 
+            // TODO Apply processing pipeline to blocked_words.txt before adding to pattern to make definition simple
             patternBuilder.append(Pattern.quote(blocked.toLowerCase()));
         }
         patternBuilder.append(")");
@@ -137,7 +138,6 @@ public class TextFilter {
         String normalized = Normalizer.normalize(symbolRemoved, Normalizer.Form.NFKC);
 
         TrackedString ts = TrackedString.from(normalized);
-
         for (FilterStage filter : pipeline) {
             ts = filter.apply(ts);
         }

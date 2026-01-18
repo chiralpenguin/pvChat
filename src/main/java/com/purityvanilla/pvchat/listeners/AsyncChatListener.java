@@ -35,9 +35,6 @@ public class AsyncChatListener implements Listener {
             });
         }
 
-        Component original = event.message();
-        Component censored = plugin.getTextFilter().filterComponent(original);
-
         ChatRenderer renderer = (source, sourceDisplayName, message, viewer) ->
                 ChatFormat.formatMessage(
                         message,
@@ -45,18 +42,28 @@ public class AsyncChatListener implements Listener {
                         plugin.config().getRawMessage("chat-renderer")
                 );
 
-        if (!original.equals(censored)) {
+        handleFiltering(event, sender, renderer);
+
+        // Apply renderer to the event (for the sender's message)
+        event.renderer(renderer);
+    }
+
+    private void handleFiltering(AsyncChatEvent event, Player sender, ChatRenderer renderer) {
+        Component original = event.message();
+        Component filtered = plugin.getTextFilter().filterComponent(original);
+
+        if (!original.equals(filtered)) {
             Set<Audience> others = new HashSet<>(event.viewers());
             others.remove(sender);
 
             event.viewers().clear();
             event.viewers().add(sender);
 
-            // Render the censored message using the same format
+            // Render the filtered message using the same format
             Component display = renderer.render(
                     sender,
                     sender.displayName(),
-                    censored,
+                    filtered,
                     Audience.empty()
             );
 
@@ -64,8 +71,5 @@ public class AsyncChatListener implements Listener {
                 viewer.sendMessage(display);
             }
         }
-
-        // Apply renderer to the event (for the sender's message)
-        event.renderer(renderer);
     }
 }

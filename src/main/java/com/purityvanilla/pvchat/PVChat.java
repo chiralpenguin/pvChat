@@ -1,6 +1,7 @@
 package com.purityvanilla.pvchat;
 
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.purityvanilla.pvchat.commands.IgnoreCommand;
 import com.purityvanilla.pvchat.commands.IgnoreListCommand;
@@ -9,7 +10,11 @@ import com.purityvanilla.pvchat.filter.TextFilter;
 import com.purityvanilla.pvchat.listeners.AsyncChatListener;
 import com.purityvanilla.pvchat.listeners.packetevents.BossBarListener;
 import com.purityvanilla.pvchat.listeners.packetevents.EntityMetaDataListener;
+import com.purityvanilla.pvchat.listeners.packetevents.UpdateSignListener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PVChat extends JavaPlugin {
     private Config config;
@@ -37,11 +42,19 @@ public class PVChat extends JavaPlugin {
     }
 
     private void registerListeners() {
+        // Bukkit event listeners
         getServer().getPluginManager().registerEvents(new AsyncChatListener(this), this);
-        PacketEvents.getAPI().getEventManager().registerListener(new BossBarListener(this),
-                PacketListenerPriority.NORMAL);
-        PacketEvents.getAPI().getEventManager().registerListener(new EntityMetaDataListener(this),
-                PacketListenerPriority.NORMAL);
+
+        // PacketEvents packet listeners
+        List<PacketListener> packetListeners = List.of(
+                new BossBarListener(this),
+                new EntityMetaDataListener(this),
+                new UpdateSignListener(this)
+        );
+
+        for (PacketListener packetListener : packetListeners) {
+            PacketEvents.getAPI().getEventManager().registerListener(packetListener, PacketListenerPriority.NORMAL);
+        }
     }
 
     public Config config() {

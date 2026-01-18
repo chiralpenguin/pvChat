@@ -10,6 +10,6 @@
   "player-not-found": "<red>Player could not be found",
   "player-only": "<red>This command can only be used by a player",
   "reload-plugin": "<aqua>Reloading pvChat",
-  "reload-complete": "<aqua>Reloaded config.yml and messages.json",
+  "reload-complete": "<aqua>Reloaded config.yml, blocked_words.txt, blocked_symbols.txt and messages.json",
   "unignore-player": "<gold><player> <aqua>is no longer ignored"
 }
