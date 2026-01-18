@@ -8,6 +8,7 @@ import com.purityvanilla.pvchat.commands.IgnoreListCommand;
 import com.purityvanilla.pvchat.commands.ReloadCommand;
 import com.purityvanilla.pvchat.filter.TextFilter;
 import com.purityvanilla.pvchat.listeners.AsyncChatListener;
+import com.purityvanilla.pvchat.listeners.CommandPreProcessListener;
 import com.purityvanilla.pvchat.listeners.PrepareAnvilListener;
 import com.purityvanilla.pvchat.listeners.packetevents.BossBarListener;
 import com.purityvanilla.pvchat.listeners.packetevents.EditBookListener;
@@ -46,6 +47,7 @@ public class PVChat extends JavaPlugin {
     private void registerListeners() {
         // Bukkit event listeners
         getServer().getPluginManager().registerEvents(new AsyncChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new CommandPreProcessListener(this), this);
         getServer().getPluginManager().registerEvents(new PrepareAnvilListener(this), this);
 
         // PacketEvents packet listeners
