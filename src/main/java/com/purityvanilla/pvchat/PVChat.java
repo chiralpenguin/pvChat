@@ -9,6 +9,7 @@ import com.purityvanilla.pvchat.commands.ReloadCommand;
 import com.purityvanilla.pvchat.filter.TextFilter;
 import com.purityvanilla.pvchat.listeners.AsyncChatListener;
 import com.purityvanilla.pvchat.listeners.packetevents.BossBarListener;
+import com.purityvanilla.pvchat.listeners.packetevents.EditBookListener;
 import com.purityvanilla.pvchat.listeners.packetevents.EntityMetaDataListener;
 import com.purityvanilla.pvchat.listeners.packetevents.UpdateSignListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,6 +49,7 @@ public class PVChat extends JavaPlugin {
         // PacketEvents packet listeners
         List<PacketListener> packetListeners = List.of(
                 new BossBarListener(this),
+                new EditBookListener(this),
                 new EntityMetaDataListener(this),
                 new UpdateSignListener(this)
         );
