@@ -12,7 +12,8 @@ public class IgnoreNonAlphaStage implements FilterStage {
     public TrackedString apply(TrackedString input) {
         List<CharSpan> result = new ArrayList<>();
         for (CharSpan span : input.chars()) {
-            boolean ignored = !Character.isLetter(span.transformed());
+            // ! is excluded from Leetspeak stage to not break tag negation, so must be considered a letter
+            boolean ignored = !Character.isLetter(span.transformed()) && span.transformed() != '!';
             result.add(span.withIgnored(ignored));
         }
         return new TrackedString(result);
