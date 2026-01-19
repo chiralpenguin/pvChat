@@ -16,6 +16,10 @@ commands:
     usage: /ignorelist
     permission: pvchat.ignorelist
     aliases: [ignored]
+  mute:
+    description: Mute a player to prevent them from chatting
+    usage: /mute <player> [<duration>]
+    permission: pvchat.mute
   reload:
     description: Reloads the plugin's configs and messages
     usage: /pvchat-reload

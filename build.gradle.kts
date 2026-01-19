@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("dev.folia", "folia-api", "1.20.1-R0.1-SNAPSHOT")
+    compileOnly("dev.folia", "folia-api", "1.21.6-R0.1-SNAPSHOT")
     compileOnly("com.purityvanilla", "pvLib", "1.0")
     compileOnly("com.purityvanilla", "pvCore", "1.0")
     compileOnly("com.github.retrooper", "packetevents-spigot", "2.11.1")
