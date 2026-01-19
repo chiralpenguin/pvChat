@@ -129,7 +129,7 @@ public class TextFilter {
         }
 
         result.append(original, cursor, original.length());
-        return result.toString();
+        return result.toString().strip();
     }
 
     public String filterText(String text) {
