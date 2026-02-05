@@ -1,5 +1,6 @@
 package com.purityvanilla.pvchat.listeners;
 
+import com.destroystokyo.paper.ClientOption;
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvchat.util.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
@@ -29,7 +30,8 @@ public class AsyncChatListener implements Listener {
         if (!sender.hasPermission("pvchat.ignore.bypass")) {
             event.viewers().removeIf(audience -> {
                 if (audience instanceof Player recipient) {
-                    return PVCore.getAPI().getPlayerAPI().isPlayerIgnored(recipient, sender);
+                    return PVCore.getAPI().getPlayerAPI().isPlayerIgnored(recipient, sender) ||
+                            recipient.getClientOption(ClientOption.CHAT_VISIBILITY) != ClientOption.ChatVisibility.FULL;
                 }
                 return false;
             });
