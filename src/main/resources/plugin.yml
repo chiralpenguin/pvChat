@@ -5,7 +5,8 @@ api-version: 1.20
 authors: [chiralpenguin]
 description: Chat plugin for the Purity Vanilla Minecraft server
 folia-supported: true
-depend: [pvLib, pvCore, packetevents]
+depend: [pvLib, pvCore]
+softdepend: [pvFilter]
 commands:
   ignore:
     description: Adds/removes a player from your ignore list to block messages

@@ -4,6 +4,7 @@ import com.destroystokyo.paper.ClientOption;
 import com.purityvanilla.pvchat.PVChat;
 import com.purityvanilla.pvchat.util.ChatFormat;
 import com.purityvanilla.pvcore.PVCore;
+import com.purityvanilla.pvfilter.PVFilter;
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.audience.Audience;
@@ -44,7 +45,7 @@ public class AsyncChatListener implements Listener {
                         plugin.config().getRawMessage("chat-renderer")
                 );
 
-        if (plugin.config().isContentFilterEnabled()) handleFiltering(event, sender, renderer);
+        if (plugin.config().contentFilterEnabled()) handleFiltering(event, sender, renderer);
 
         // Apply renderer to the event (for the sender's message)
         event.renderer(renderer);
@@ -52,7 +53,7 @@ public class AsyncChatListener implements Listener {
 
     private void handleFiltering(AsyncChatEvent event, Player sender, ChatRenderer renderer) {
         Component original = event.message();
-        Component filtered = plugin.getTextFilter().filterComponent(original);
+        Component filtered = PVFilter.getTextFilter().filterComponent(original);
 
         if (!original.equals(filtered)) {
             Set<Audience> others = new HashSet<>(event.viewers());

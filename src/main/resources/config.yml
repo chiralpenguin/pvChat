@@ -1,12 +1,4 @@
 # pvChat version 1.0
-enable-content-filter: true
-replacement-string: '****'
-mute-blocked-commands:
-  - tell
-  - msg
-  - whisper
-  - w
-  - reply
-  - r
+enable-content-filter: false
 
 verbose: false

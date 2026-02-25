@@ -10,16 +10,13 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://repo.codemc.io/repository/maven-releases/")
 }
 
 dependencies {
-    compileOnly("dev.folia", "folia-api", "1.20.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper", "paper-api", "1.21.11-R0.1-SNAPSHOT")
     compileOnly("com.purityvanilla", "pvLib", "1.0")
     compileOnly("com.purityvanilla", "pvCore", "1.0")
-    compileOnly("com.github.retrooper", "packetevents-spigot", "2.11.1")
-
-    implementation("com.ibm.icu", "icu4j", "68.1")
+    compileOnly("com.purityvanilla", "pvFilter", "1.0")
 }
 
 tasks.shadowJar {
